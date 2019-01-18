@@ -12,7 +12,7 @@ import Alamofire
 
 public typealias NetworkProvider = MoyaProvider
 enum NetworkRouter {
-    case getData(resourceId: String, limit: Int)
+    case getData(resourceId: String, limit: Int, query: String)
 }
 extension NetworkRouter: TargetType {
     var baseURL: URL { return URL(string: "https://data.gov.sg/api/action/")! }
@@ -30,8 +30,8 @@ extension NetworkRouter: TargetType {
     }
     var task: Task {
         switch self {
-        case let .getData(resourceId, limit):  // Always sends parameters in URL, regardless of which HTTP method is used
-            return .requestParameters(parameters: ["resource_id": resourceId, "limit": limit], encoding: URLEncoding.queryString)
+        case let .getData(resourceId, limit, query):  // Always sends parameters in URL, regardless of which HTTP method is used
+            return .requestParameters(parameters: ["resource_id": resourceId, "limit": limit, "q": query], encoding: URLEncoding.queryString)
         }
     }
     var sampleData: Data {

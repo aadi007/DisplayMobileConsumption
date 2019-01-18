@@ -17,7 +17,7 @@ class DataDisplayViewController: UIViewController {
     }
     
     func getData() {
-        AppProvider.networkManager.request(NetworkRouter.getData(resourceId: "a807b7ab-6cad-4aa6-87d0-e283a7353a0f", limit: 20)) { result in
+        AppProvider.networkManager.request(NetworkRouter.getData(resourceId: "a807b7ab-6cad-4aa6-87d0-e283a7353a0f", limit: 20, query: "2008")) { result in
             switch result {
             case let .success(moyaResponse):
                 let statusCode = moyaResponse.statusCode
