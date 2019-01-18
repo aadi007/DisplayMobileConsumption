@@ -10,6 +10,7 @@ import UIKit
 
 class DataDisplayTableViewCell: UITableViewCell {
     @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var quaterLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

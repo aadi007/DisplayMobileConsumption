@@ -10,42 +10,34 @@ import UIKit
 
 class DataDisplayViewController: UIViewController {
     @IBOutlet weak var dataTable: UITableView!
-    var records = [Record]()
+    let viewModel = DataFetchViewModel(min: 2008, max: 2018)
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
-    }
-    
-    func getData() {
-        AppProvider.networkManager.request(NetworkRouter.getData(resourceId: "a807b7ab-6cad-4aa6-87d0-e283a7353a0f", limit: 20, query: "2008")) { result in
-            switch result {
-            case let .success(moyaResponse):
-                let statusCode = moyaResponse.statusCode
-                if statusCode == 200 {
-                    do {
-                        print(try moyaResponse.mapJSON())
-                    } catch {
-                        print(moyaResponse.data)
-                    }
-                } else {
-                    print(statusCode)
-                }
-            case let .failure(error):
-                print("error \(error.errorDescription ?? "")")
-            }
+        viewModel.fetchData {
+            self.dataTable.reloadData()
         }
     }
 }
-extension DataDisplayViewController: UITableViewDataSource {
+extension DataDisplayViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return records.count
+        return viewModel.records.count
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.records.count - 1 {
+            //make another call
+            viewModel.fetchData {
+                self.dataTable.reloadData()
+            }
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DataDisplayTableViewCell", for: indexPath) as? DataDisplayTableViewCell {
-            cell.dataLabel.text = indexPath.row.description
+            let data = viewModel.records[indexPath.row]
+            cell.dataLabel.text = data.mobileDataVolume
+            cell.quaterLabel.text = data.quarter
             return cell
         } else {
             return UITableViewCell()
