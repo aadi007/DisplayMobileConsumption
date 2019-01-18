@@ -5,22 +5,26 @@ PODS:
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
+  - ObjectMapper (3.4.2)
   - Result (4.1.0)
 
 DEPENDENCIES:
   - Moya (~> 12.0)
+  - ObjectMapper
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Moya
+    - ObjectMapper
     - Result
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
 
-PODFILE CHECKSUM: 252c063c3f4fe0c0a4a55146020b479f0bfdc216
+PODFILE CHECKSUM: 7f29811dfdd1ca466489d7d2f87055eeefb67473
 
 COCOAPODS: 1.5.3
