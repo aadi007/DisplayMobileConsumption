@@ -14,6 +14,10 @@
 		15DED56621F1B9620019B574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DED56421F1B9620019B574 /* LaunchScreen.storyboard */; };
 		15DED57121F1B9630019B574 /* DisplayDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED57021F1B9630019B574 /* DisplayDataTests.swift */; };
 		15DED57C21F1B9630019B574 /* DisplayDataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED57B21F1B9630019B574 /* DisplayDataUITests.swift */; };
+		15DED58B21F1BC160019B574 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED58A21F1BC160019B574 /* NetworkManager.swift */; };
+		15DED58E21F1EABC0019B574 /* DataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED58D21F1EABC0019B574 /* DataDisplayViewController.swift */; };
+		15DED59121F1F15F0019B574 /* DataDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED59021F1F15F0019B574 /* DataDisplayTableViewCell.swift */; };
+		15DED59421F1F2A50019B574 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED59321F1F2A50019B574 /* Record.swift */; };
 		40BC8F6403C4024BFC7326FC /* Pods_DisplayData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 817A219B49967D50D7A9538D /* Pods_DisplayData.framework */; };
 		84AE8A2532E402A0664CA9AD /* Pods_DisplayDataUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C8AAC996FFC748BC600B25 /* Pods_DisplayDataUITests.framework */; };
 		E17546A7516DBB85FAB68BE2 /* Pods_DisplayDataTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4495C574E5BF8049667581A0 /* Pods_DisplayDataTests.framework */; };
@@ -50,6 +54,10 @@
 		15DED57721F1B9630019B574 /* DisplayDataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DisplayDataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15DED57B21F1B9630019B574 /* DisplayDataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayDataUITests.swift; sourceTree = "<group>"; };
 		15DED57D21F1B9630019B574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15DED58A21F1BC160019B574 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		15DED58D21F1EABC0019B574 /* DataDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDisplayViewController.swift; sourceTree = "<group>"; };
+		15DED59021F1F15F0019B574 /* DataDisplayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		15DED59321F1F2A50019B574 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		298C1CD08C207215CA28A1E4 /* Pods-DisplayDataTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DisplayDataTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DisplayDataTests/Pods-DisplayDataTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A4EA4CF710B84D66F98B5BE /* Pods-DisplayDataUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DisplayDataUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DisplayDataUITests/Pods-DisplayDataUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4495C574E5BF8049667581A0 /* Pods_DisplayDataTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DisplayDataTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +122,10 @@
 		15DED55A21F1B95F0019B574 /* DisplayData */ = {
 			isa = PBXGroup;
 			children = (
+				15DED58921F1BBE60019B574 /* NetworkManager */,
+				15DED58C21F1EA660019B574 /* Controller */,
+				15DED58F21F1F0030019B574 /* ViewCell */,
+				15DED59221F1F2840019B574 /* Model */,
 				15DED55B21F1B95F0019B574 /* AppDelegate.swift */,
 				15DED55D21F1B95F0019B574 /* ViewController.swift */,
 				15DED55F21F1B95F0019B574 /* Main.storyboard */,
@@ -140,6 +152,38 @@
 				15DED57D21F1B9630019B574 /* Info.plist */,
 			);
 			path = DisplayDataUITests;
+			sourceTree = "<group>";
+		};
+		15DED58921F1BBE60019B574 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				15DED58A21F1BC160019B574 /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		15DED58C21F1EA660019B574 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				15DED58D21F1EABC0019B574 /* DataDisplayViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		15DED58F21F1F0030019B574 /* ViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				15DED59021F1F15F0019B574 /* DataDisplayTableViewCell.swift */,
+			);
+			path = ViewCell;
+			sourceTree = "<group>";
+		};
+		15DED59221F1F2840019B574 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				15DED59321F1F2A50019B574 /* Record.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		90C054B51969F4BB1D22F0A7 /* Pods */ = {
@@ -379,7 +423,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15DED58B21F1BC160019B574 /* NetworkManager.swift in Sources */,
+				15DED58E21F1EABC0019B574 /* DataDisplayViewController.swift in Sources */,
+				15DED59421F1F2A50019B574 /* Record.swift in Sources */,
 				15DED55E21F1B95F0019B574 /* ViewController.swift in Sources */,
+				15DED59121F1F15F0019B574 /* DataDisplayTableViewCell.swift in Sources */,
 				15DED55C21F1B95F0019B574 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
