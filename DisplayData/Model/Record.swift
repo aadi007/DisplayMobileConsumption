@@ -14,7 +14,7 @@ struct Record: Mappable {
     var quarter: String?
     var id: Int?
     var fullCount: String?
-    var rank: Int?
+    var rank: Float?
     
     init?(map: Map) {
     }

@@ -11,7 +11,7 @@ import UIKit
 class DataDisplayTableViewCell: UITableViewCell {
     @IBOutlet weak var dataLabel: UILabel!
     @IBOutlet weak var quaterLabel: UILabel!
-    @IBOutlet weak var rankLabel: UIView!
+    @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var q1VolumeLabel: UILabel!
     @IBOutlet weak var q1View: UIView!
     @IBOutlet weak var q2VolumeLabel: UILabel!
@@ -35,6 +35,7 @@ class DataDisplayTableViewCell: UITableViewCell {
     func configureCell(record: YearRecord) {
         dataLabel.text = "Total voume consumed: " + record.totalVolumeConusmed
         quaterLabel.text = "Q: " + record.year
+        rankLabel.text = "Rank: " + (record.quaters.last?.rank?.description ?? "0")
         hideQuaters()
         for index in 0..<record.quaters.count {
             switch index {
