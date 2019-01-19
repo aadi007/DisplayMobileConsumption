@@ -8,6 +8,7 @@ target 'DisplayData' do
   # Pods for DisplayData
   pod 'Moya', '~> 12.0'
   pod 'ObjectMapper'
+  pod 'RealmSwift'
 
   target 'DisplayDataTests' do
     inherit! :search_paths
