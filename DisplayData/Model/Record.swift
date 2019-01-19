@@ -37,3 +37,16 @@ struct DataFetchAPIResponse: Mappable {
         total                       <- map["total"]
     }
 }
+
+struct YearRecord {
+    var quaters: [Record]
+    var totalVolumeConusmed: String
+    var year: String
+    init(quaters: [Record], year: String) {
+        self.quaters = quaters
+        self.year = year
+        self.totalVolumeConusmed = quaters.map({ Float($0.mobileDataVolume!)!}).reduce(0, { x, y in
+            x + y
+        }).description
+    }
+}

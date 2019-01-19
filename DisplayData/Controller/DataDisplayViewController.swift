@@ -35,9 +35,7 @@ extension DataDisplayViewController: UITableViewDataSource, UITableViewDelegate 
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DataDisplayTableViewCell", for: indexPath) as? DataDisplayTableViewCell {
-            let data = viewModel.records[indexPath.row]
-            cell.dataLabel.text = data.mobileDataVolume
-            cell.quaterLabel.text = data.quarter
+            cell.configureCell(record: viewModel.records[indexPath.row])
             return cell
         } else {
             return UITableViewCell()

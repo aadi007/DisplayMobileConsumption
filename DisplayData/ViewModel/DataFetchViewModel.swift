@@ -10,7 +10,7 @@ import UIKit
 import ObjectMapper
 
 class DataFetchViewModel {
-    var records = [Record]()
+    var records = [YearRecord]()
     private let pageLimit = 4
     private let resourceId = "a807b7ab-6cad-4aa6-87d0-e283a7353a0f"
     private var minLimit = 2008
@@ -44,7 +44,8 @@ class DataFetchViewModel {
                         if let data = try moyaResponse.mapJSON() as? [String: Any] {
                             if let apiResponse = Mapper<DataFetchAPIResponse>().map(JSONObject: data),
                                 let apiRecordsFetched = apiResponse.records  {
-                                self.records += apiRecordsFetched
+                                let record = YearRecord(quaters: apiRecordsFetched, year: self.queryArray[self.queryIndex - 1])
+                                self.records.append(record)
                             }
                             print(data)
                         }
