@@ -14,7 +14,8 @@ struct Record: Mappable {
     var quarter: String?
     var id: Int?
     var fullCount: String?
-    var rank: Int?
+    var rank: Float?
+    var decreasedVolume = false
     
     init?(map: Map) {
     }
@@ -38,15 +39,32 @@ struct DataFetchAPIResponse: Mappable {
     }
 }
 
-struct YearRecord {
+class YearRecord {
     var quaters: [Record]
     var totalVolumeConusmed: String
     var year: String
+    var performannceDecreased = false
     init(quaters: [Record], year: String) {
         self.quaters = quaters
         self.year = year
         self.totalVolumeConusmed = quaters.map({ Float($0.mobileDataVolume!)!}).reduce(0, { x, y in
             x + y
         }).description
+        calculateQuatersPerformance()
+    }
+    func calculateQuatersPerformance() {
+        let quaterVolumes = quaters.map({ Float($0.mobileDataVolume!)! })
+        if !quaterVolumes.isEmpty {
+            var minimumValue: Float = 0.0
+            for index in 0..<quaterVolumes.count {
+                let volume = quaterVolumes[index]
+                if volume < minimumValue {
+                    //set the volume for this year decreased
+                    self.performannceDecreased = true
+                    self.quaters[index].decreasedVolume = true
+                }
+                minimumValue = volume
+            }
+        }
     }
 }
