@@ -38,22 +38,28 @@ class DataDisplayTableViewCell: UITableViewCell {
         rankLabel.text = "Rank: " + (record.quaters.last?.rank?.description ?? "0")
         hideQuaters()
         for index in 0..<record.quaters.count {
+            let quarter = record.quaters[index]
             switch index {
             case 0:
-                q1VolumeLabel.text = record.quaters[index].mobileDataVolume
+                q1VolumeLabel.text = quarter.mobileDataVolume
                 q1View.isHidden = false
+                q1View.backgroundColor =  quarter.decreasedVolume ? UIColor.themeRedColor() : UIColor.themeGreenColor()
             case 1:
-                q2VolumeLabel.text = record.quaters[index].mobileDataVolume
+                q2VolumeLabel.text = quarter.mobileDataVolume
                 q2View.isHidden = false
+                q2View.backgroundColor =  quarter.decreasedVolume ? UIColor.themeRedColor() : UIColor.themeGreenColor()
             case 2:
-                q3VolumeLabel.text = record.quaters[index].mobileDataVolume
+                q3VolumeLabel.text = quarter.mobileDataVolume
                 q3View.isHidden = false
+                q3View.backgroundColor =  quarter.decreasedVolume ? UIColor.themeRedColor() : UIColor.themeGreenColor()
             case 3:
-                q4VolumeLabel.text = record.quaters[index].mobileDataVolume
+                q4VolumeLabel.text = quarter.mobileDataVolume
                 q4View.isHidden = false
+                q4View.backgroundColor =  quarter.decreasedVolume ? UIColor.themeRedColor() : UIColor.themeGreenColor()
             default:
                 break
             }
         }
+        self.selectionStyle = record.performannceDecreased ? UITableViewCell.SelectionStyle.default : .none
     }
 }
