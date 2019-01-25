@@ -35,33 +35,42 @@ class DataFetchViewModel {
             print("End of data")
             return
         }
-        AppProvider.networkManager.request(NetworkRouter.getData(resourceId: resourceId, limit: pageLimit, query: queryArray[queryIndex - 1])) { result in
-            switch result {
-            case let .success(moyaResponse):
-                let statusCode = moyaResponse.statusCode
-                if statusCode == 200 {
-                    do {
-                        if let data = try moyaResponse.mapJSON() as? [String: Any] {
-                            if let apiResponse = Mapper<DataFetchAPIResponse>().map(JSONObject: data),
-                                let apiRecordsFetched = apiResponse.records  {
-                                //check for the request keys
-                                let urlComponent = URLComponents(url: (moyaResponse.request?.url!)!, resolvingAgainstBaseURL: false)
-                                let record = YearRecord(quaters: apiRecordsFetched, year: urlComponent?.queryItems?.filter({ $0.name == "q" }).first?.value ?? "")
-                                self.records.append(record)
+        let currentYear = queryArray[queryIndex - 1]
+        if let yearRecord = DataBaseManager.getRecordFor(year: currentYear) {
+            self.records.append(yearRecord)
+            completionHandler()
+        } else {
+            AppProvider.networkManager.request(NetworkRouter.getData(resourceId: resourceId, limit: pageLimit, query: currentYear)) { result in
+                switch result {
+                case let .success(moyaResponse):
+                    let statusCode = moyaResponse.statusCode
+                    if statusCode == 200 {
+                        do {
+                            if let data = try moyaResponse.mapJSON() as? [String: Any] {
+                                if let apiResponse = Mapper<DataFetchAPIResponse>().map(JSONObject: data),
+                                    let apiRecordsFetched = apiResponse.records  {
+                                    //check for the request keys
+                                    let urlComponent = URLComponents(url: (moyaResponse.request?.url!)!, resolvingAgainstBaseURL: false)
+                                    let record = YearRecord()
+                                    record.config(quaters: apiRecordsFetched, year: urlComponent?.queryItems?.filter({ $0.name == "q" }).first?.value ?? "")
+                                    self.records.append(record)
+                                    //store the data in persistent storage
+                                    DataBaseManager.storeYearRecord(yearRecord: record)
+                                }
+                                print(data)
                             }
-                            print(data)
+                        } catch {
+                            print(moyaResponse.data)
+                            completionHandler()
                         }
-                    } catch {
-                        print(moyaResponse.data)
-                        completionHandler()
+                    } else {
+                        print(statusCode)
                     }
-                } else {
-                    print(statusCode)
+                    completionHandler()
+                case let .failure(error):
+                    print("error \(error.errorDescription ?? "")")
+                    completionHandler()
                 }
-                completionHandler()
-            case let .failure(error):
-                print("error \(error.errorDescription ?? "")")
-                completionHandler()
             }
         }
     }

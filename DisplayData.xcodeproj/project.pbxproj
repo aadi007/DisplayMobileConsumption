@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15C71E3E21FB801B0077149F /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C71E3D21FB801B0077149F /* DataBaseManager.swift */; };
 		15DED55C21F1B95F0019B574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED55B21F1B95F0019B574 /* AppDelegate.swift */; };
 		15DED56121F1B95F0019B574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DED55F21F1B95F0019B574 /* Main.storyboard */; };
 		15DED56321F1B9620019B574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15DED56221F1B9620019B574 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15C71E3D21FB801B0077149F /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		15DED55821F1B95F0019B574 /* DisplayData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisplayData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15DED55B21F1B95F0019B574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15DED56021F1B95F0019B574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				15DED59321F1F2A50019B574 /* Record.swift */,
+				15C71E3D21FB801B0077149F /* DataBaseManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C71E3E21FB801B0077149F /* DataBaseManager.swift in Sources */,
 				15DED59721F1FAFF0019B574 /* DataFetchViewModel.swift in Sources */,
 				15DED58B21F1BC160019B574 /* NetworkManager.swift in Sources */,
 				15DED58E21F1EABC0019B574 /* DataDisplayViewController.swift in Sources */,

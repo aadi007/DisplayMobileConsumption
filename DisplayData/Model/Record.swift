@@ -46,11 +46,7 @@ class YearRecord: Object {
     @objc dynamic var totalVolumeConusmed = ""
     @objc dynamic var year = ""
     @objc dynamic var performannceDecreased = false
-    required init() {
-       super.init()
-    }
-    init(quaters: [Record], year: String) {
-        super.init()
+    func config(quaters: [Record], year: String) {
         var minimumValue: Double = 0.0
         for quater in quaters {
             let realmQuater = Record()
@@ -74,11 +70,5 @@ class YearRecord: Object {
         self.totalVolumeConusmed = quaters.map({ Float($0.mobileDataVolume!)!}).reduce(0, { x, y in
             x + y
         }).description
-    }
-    required init(realm: RLMRealm, schema: RLMObjectSchema) {
-        fatalError("init(realm:schema:) has not been implemented")
-    }
-    required init(value: Any, schema: RLMSchema) {
-        fatalError("init(value:schema:) has not been implemented")
     }
 }
