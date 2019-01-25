@@ -35,7 +35,7 @@ class DataDisplayTableViewCell: UITableViewCell {
     func configureCell(record: YearRecord) {
         dataLabel.text = "Total voume consumed: " + record.totalVolumeConusmed
         quaterLabel.text = "Q: " + record.year
-        rankLabel.text = "Rank: " + (record.quaters.last?.rank?.description ?? "0")
+        rankLabel.text = "Rank: " + (record.quaters.last?.rank.description ?? "0")
         hideQuaters()
         for index in 0..<record.quaters.count {
             let quarter = record.quaters[index]

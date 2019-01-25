@@ -44,7 +44,9 @@ class DataFetchViewModel {
                         if let data = try moyaResponse.mapJSON() as? [String: Any] {
                             if let apiResponse = Mapper<DataFetchAPIResponse>().map(JSONObject: data),
                                 let apiRecordsFetched = apiResponse.records  {
-                                let record = YearRecord(quaters: apiRecordsFetched, year: self.queryArray[self.queryIndex - 1])
+                                //check for the request keys
+                                let urlComponent = URLComponents(url: (moyaResponse.request?.url!)!, resolvingAgainstBaseURL: false)
+                                let record = YearRecord(quaters: apiRecordsFetched, year: urlComponent?.queryItems?.filter({ $0.name == "q" }).first?.value ?? "")
                                 self.records.append(record)
                             }
                             print(data)
