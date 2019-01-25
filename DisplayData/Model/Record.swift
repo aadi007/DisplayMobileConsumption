@@ -74,7 +74,6 @@ class YearRecord: Object {
         self.totalVolumeConusmed = quaters.map({ Float($0.mobileDataVolume!)!}).reduce(0, { x, y in
             x + y
         }).description
-//        calculateQuatersPerformance()
     }
     required init(realm: RLMRealm, schema: RLMObjectSchema) {
         fatalError("init(realm:schema:) has not been implemented")
@@ -82,20 +81,4 @@ class YearRecord: Object {
     required init(value: Any, schema: RLMSchema) {
         fatalError("init(value:schema:) has not been implemented")
     }
-//    func calculateQuatersPerformance() {
-//        if let quaterVolumes = self.quaters?.map({ Float($0.mobileDataVolume!)!} ) {
-//            if !quaterVolumes.isEmpty {
-//                var minimumValue: Float = 0.0
-//                for index in 0..<quaterVolumes.count {
-//                    let volume = quaterVolumes[index]
-//                    if volume < minimumValue {
-//                        //set the volume for this year decreased
-//                        self.performannceDecreased = true
-//                        self.quaters?[index].decreasedVolume = true
-//                    }
-//                    minimumValue = volume
-//                }
-//            }
-//        }
-//    }
 }
