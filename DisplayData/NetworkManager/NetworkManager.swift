@@ -37,7 +37,7 @@ extension NetworkRouter: TargetType {
     var sampleData: Data {
         switch self {
         case .getData:
-            return StubResponse.fromJSONFile("Q2008Response.json")
+            return StubResponse.fromJSONFile("RecordResponse")
         }
     }
     var headers: [String: String]? {
