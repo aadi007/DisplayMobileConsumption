@@ -12,14 +12,37 @@ class DataDisplayViewController: UIViewController {
     @IBOutlet weak var dataTable: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     var viewModel: DataFetchViewModel!
+    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: AppProvider.networkManager)
-        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: NetworkProvider<NetworkRouter>(endpointClosure: networkEndPointClousure, stubClosure: NetworkProvider.delayedStub(1)))
-        viewModel.fetchData {
-            self.titleLabel.text = "Displaying the amount the of data sent over Singapore’s mobile networks from 2008 to 2018."
-            self.dataTable.reloadData()
-        }
+        refreshControl.addTarget(self, action: #selector(fetchData), for: .valueChanged)
+        dataTable.refreshControl = refreshControl
+        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: AppProvider.networkManager)
+        fetchData()
+    }
+    @objc func fetchData() {
+        self.dataTable.refreshControl?.beginRefreshing()
+        viewModel.resetData()
+        self.dataTable.reloadData()
+        viewModel.fetchData(completionHandler: { (errorMessage) in
+            if let message = errorMessage {
+                //display an alert
+                let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { (action) in
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.titleLabel.text = "Displaying the amount the of data sent over Singapore’s mobile networks from 2008 to 2018."
+                self.dataTable.reloadData()
+            }
+            DispatchQueue.main.async {
+                self.dataTable.refreshControl?.endRefreshing()
+            }
+        })
+    }
+    @IBAction func clearCachedData(_ sender: Any) {
+        DataBaseManager.deleteRecords()
     }
 }
 extension DataDisplayViewController: UITableViewDataSource, UITableViewDelegate {
@@ -32,7 +55,7 @@ extension DataDisplayViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == viewModel.records.count - 1 {
             //make another call
-            viewModel.fetchData {
+            viewModel.fetchData { _ in
                 self.dataTable.reloadData()
             }
         }
