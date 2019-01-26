@@ -33,7 +33,11 @@ class DataFetchViewModel {
     func getYearsQueryArray() -> [String] {
         return queryArray
     }
-    func fetchData(completionHandler: @escaping (() -> Void)) {
+    func resetData() {
+        records.removeAll()
+        queryIndex = 0
+    }
+    func fetchData(completionHandler: @escaping ((_ errorMessage: String?) -> Void)) {
         queryIndex += 1
         if queryIndex > queryArray.count {
             //End of list
@@ -42,7 +46,7 @@ class DataFetchViewModel {
         let currentYear = queryArray[queryIndex - 1]
         if let yearRecord = DataBaseManager.getRecordFor(year: currentYear) {
             self.records.append(yearRecord)
-            completionHandler()
+            completionHandler(nil)
         } else {
             networkResource.request(NetworkRouter.getData(resourceId: resourceId, limit: pageLimit, query: currentYear)) { result in
                 switch result {
@@ -62,18 +66,19 @@ class DataFetchViewModel {
                                     DataBaseManager.storeYearRecord(yearRecord: record)
                                 }
                                 print(data)
+                                completionHandler(nil)
                             }
                         } catch {
                             print(moyaResponse.data)
-                            completionHandler()
+                            completionHandler("Failed to parse the json response")
                         }
                     } else {
                         print(statusCode)
+                        completionHandler("Failed with statusCode \(statusCode)")
                     }
-                    completionHandler()
                 case let .failure(error):
                     print("error \(error.errorDescription ?? "")")
-                    completionHandler()
+                    completionHandler(error.errorDescription)
                 }
             }
         }

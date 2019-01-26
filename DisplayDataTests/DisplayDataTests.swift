@@ -29,22 +29,32 @@ class DisplayDataTests: XCTestCase {
         DataBaseManager.deleteRecords()
         let promise = expectation(description: "Status code: 200")
         var count = 0
-        dataDisplayViewController.viewModel.fetchData {
-            count = self.dataDisplayViewController.viewModel.records.count
+        var error: String?
+        dataDisplayViewController.viewModel.fetchData(completionHandler: { (errorMessage) in
+            if errorMessage != nil {
+                error = errorMessage
+            } else {
+                count = self.dataDisplayViewController.viewModel.records.count
+            }
             promise.fulfill()
-        }
+        })
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008")")
+        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008") \(error)")
     }
     func testFetchDataWithStoredData() {
         let promise = expectation(description: "Status code: 200")
         var count = 0
-        dataDisplayViewController.viewModel.fetchData {
-            count = self.dataDisplayViewController.viewModel.records.count
+        var error: String?
+        dataDisplayViewController.viewModel.fetchData(completionHandler: { (errorMessage) in
+            if errorMessage != nil {
+                error = errorMessage
+            } else {
+                count = self.dataDisplayViewController.viewModel.records.count
+            }
             promise.fulfill()
-        }
+        })
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008")")
+        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008") \(error)")
     }
 
     func testPerformanceExample() {
