@@ -23,6 +23,10 @@ class DataBaseManager: NSObject {
         }
     }
     class func deleteRecords() {
-        
+        let realm = try! Realm()
+        let records = realm.objects(YearRecord.self)
+        try! realm.write {
+            realm.delete(records)
+        }
     }
 }

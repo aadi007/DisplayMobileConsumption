@@ -36,8 +36,8 @@ extension NetworkRouter: TargetType {
     }
     var sampleData: Data {
         switch self {
-        case .getData(let id):
-            return "{\"id\": \(id), \"first_name\": \"Harry\", \"last_name\": \"Potter\"}".data(using: String.Encoding.utf8)!
+        case .getData:
+            return StubResponse.fromJSONFile("RecordResponse")
         }
     }
     var headers: [String: String]? {
@@ -69,4 +69,24 @@ class DefaultAlamofireManager: Alamofire.SessionManager {
         return instance
     }()
 }
-
+final class StubResponse {
+    static func fromJSONFile(_ fileName: String) -> Data {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "json") else {
+            fatalError("Invalid path for json file")
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            fatalError("Invalid data from json file")
+        }
+        return data
+    }
+    static func fromJSONFile(_ fileName: String) -> String {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "json") else {
+            fatalError("Invalid path for txt file")
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            fatalError("Invalid data from txt file")
+        }
+        let str = String(data: data, encoding: String.Encoding.utf8)!
+        return str
+    }
+}
