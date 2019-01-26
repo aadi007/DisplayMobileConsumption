@@ -79,4 +79,14 @@ final class StubResponse {
         }
         return data
     }
+    static func fromJSONFile(_ fileName: String) -> String {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "json") else {
+            fatalError("Invalid path for txt file")
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            fatalError("Invalid data from txt file")
+        }
+        let str = String(data: data, encoding: String.Encoding.utf8)!
+        return str
+    }
 }
