@@ -28,6 +28,9 @@ class DataFetchViewModel {
             queryArray.append((minLimit + i).description)
         }
     }
+    func getYearsQueryArray() -> [String] {
+        return queryArray
+    }
     func fetchData(completionHandler: @escaping (() -> Void)) {
         queryIndex += 1
         if queryIndex > queryArray.count {
