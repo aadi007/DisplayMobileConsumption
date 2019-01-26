@@ -36,8 +36,8 @@ extension NetworkRouter: TargetType {
     }
     var sampleData: Data {
         switch self {
-        case .getData(let id):
-            return "{\"id\": \(id), \"first_name\": \"Harry\", \"last_name\": \"Potter\"}".data(using: String.Encoding.utf8)!
+        case .getData:
+            return StubResponse.fromJSONFile("Q2008Response.json")
         }
     }
     var headers: [String: String]? {
@@ -69,4 +69,14 @@ class DefaultAlamofireManager: Alamofire.SessionManager {
         return instance
     }()
 }
-
+final class StubResponse {
+    static func fromJSONFile(_ fileName: String) -> Data {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "json") else {
+            fatalError("Invalid path for json file")
+        }
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            fatalError("Invalid data from json file")
+        }
+        return data
+    }
+}

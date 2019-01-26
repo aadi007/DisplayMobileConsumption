@@ -11,7 +11,7 @@ import UIKit
 class DataDisplayViewController: UIViewController {
     @IBOutlet weak var dataTable: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
-    let viewModel = DataFetchViewModel(min: 2008, max: 2018)
+    let viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: AppProvider.networkManager)
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.fetchData {

@@ -17,9 +17,11 @@ class DataFetchViewModel {
     private var maxLimit = 2018
     private var queryArray = [String]()
     private var queryIndex = 0
-    init(min: Int, max: Int) {
+    private var networkResource: NetworkProvider<NetworkRouter> = AppProvider.networkManager
+    init(min: Int, max: Int, networkManager: NetworkProvider<NetworkRouter>) {
         self.minLimit = min
         self.maxLimit = max
+        self.networkResource = networkManager
         fillQueryDetails()
     }
     func fillQueryDetails() {
@@ -42,7 +44,7 @@ class DataFetchViewModel {
             self.records.append(yearRecord)
             completionHandler()
         } else {
-            AppProvider.networkManager.request(NetworkRouter.getData(resourceId: resourceId, limit: pageLimit, query: currentYear)) { result in
+            networkResource.request(NetworkRouter.getData(resourceId: resourceId, limit: pageLimit, query: currentYear)) { result in
                 switch result {
                 case let .success(moyaResponse):
                     let statusCode = moyaResponse.statusCode

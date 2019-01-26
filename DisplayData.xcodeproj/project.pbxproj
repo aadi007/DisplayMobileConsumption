@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15C71E3E21FB801B0077149F /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C71E3D21FB801B0077149F /* DataBaseManager.swift */; };
 		15C71E4021FCB3BD0077149F /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C71E3F21FCB3BD0077149F /* NetworkManagerTests.swift */; };
+		15C71E4321FCBD750077149F /* Q2008Response.json in Resources */ = {isa = PBXBuildFile; fileRef = 15C71E4221FCBD750077149F /* Q2008Response.json */; };
 		15DED55C21F1B95F0019B574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DED55B21F1B95F0019B574 /* AppDelegate.swift */; };
 		15DED56121F1B95F0019B574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DED55F21F1B95F0019B574 /* Main.storyboard */; };
 		15DED56321F1B9620019B574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15DED56221F1B9620019B574 /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		15C71E3D21FB801B0077149F /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		15C71E3F21FCB3BD0077149F /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		15C71E4221FCBD750077149F /* Q2008Response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Q2008Response.json; sourceTree = "<group>"; };
 		15DED55821F1B95F0019B574 /* DisplayData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisplayData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15DED55B21F1B95F0019B574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15DED56021F1B95F0019B574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15C71E4121FCBD370077149F /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				15C71E4221FCBD750077149F /* Q2008Response.json */,
+			);
+			path = Stubs;
+			sourceTree = "<group>";
+		};
 		15DED54F21F1B95F0019B574 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 				15DED57021F1B9630019B574 /* DisplayDataTests.swift */,
 				15DED57221F1B9630019B574 /* Info.plist */,
 				15C71E3F21FCB3BD0077149F /* NetworkManagerTests.swift */,
+				15C71E4121FCBD370077149F /* Stubs */,
 			);
 			path = DisplayDataTests;
 			sourceTree = "<group>";
@@ -352,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C71E4321FCBD750077149F /* Q2008Response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
