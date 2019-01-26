@@ -39,29 +39,16 @@ class DisplayDataTests: XCTestCase {
             promise.fulfill()
         })
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008") \(error)")
+        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008") \(String(describing: error))")
     }
     func testFetchDataWithStoredData() {
-        let promise = expectation(description: "Status code: 200")
-        var count = 0
-        var error: String?
         dataDisplayViewController.viewModel.fetchData(completionHandler: { (errorMessage) in
-            if errorMessage != nil {
-                error = errorMessage
+            if let message = errorMessage {
+                XCTFail(message)
             } else {
-                count = self.dataDisplayViewController.viewModel.records.count
+                let count = self.dataDisplayViewController.viewModel.records.count
+                XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008")")
             }
-            promise.fulfill()
         })
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008") \(error)")
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
