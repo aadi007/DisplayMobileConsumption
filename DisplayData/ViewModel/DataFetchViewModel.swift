@@ -27,12 +27,11 @@ class DataFetchViewModel {
         for i in 0..<diff + 1 {
             queryArray.append((minLimit + i).description)
         }
-        print(queryArray)
     }
     func fetchData(completionHandler: @escaping (() -> Void)) {
         queryIndex += 1
         if queryIndex > queryArray.count {
-            print("End of data")
+            //End of list
             return
         }
         let currentYear = queryArray[queryIndex - 1]
