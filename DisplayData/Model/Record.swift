@@ -8,18 +8,20 @@
 
 import UIKit
 import ObjectMapper
+import RealmSwift
+import Realm
 
-struct Record: Mappable {
-    var mobileDataVolume: String?
-    var quarter: String?
-    var id: Int?
-    var fullCount: String?
-    var rank: Float?
-    var decreasedVolume = false
-    
-    init?(map: Map) {
+class Record: Object, Mappable {
+    @objc dynamic var mobileDataVolume: String?
+    @objc dynamic var quarter: String?
+    @objc dynamic var id: Int = 0
+    @objc dynamic var fullCount: String?
+    @objc dynamic var rank: Double = 0.0
+    @objc dynamic var decreasedVolume = false
+    required convenience init?(map: Map) {
+        self.init()
     }
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         mobileDataVolume                <- map["volume_of_mobile_data"]
         quarter                       <- map["quarter"]
         id                           <- map["_id"]
@@ -39,32 +41,34 @@ struct DataFetchAPIResponse: Mappable {
     }
 }
 
-class YearRecord {
-    var quaters: [Record]
-    var totalVolumeConusmed: String
-    var year: String
-    var performannceDecreased = false
-    init(quaters: [Record], year: String) {
-        self.quaters = quaters
+class YearRecord: Object {
+    var quaters = List<Record>()
+    @objc dynamic var totalVolumeConusmed = ""
+    @objc dynamic var year = ""
+    @objc dynamic var performannceDecreased = false
+    func config(quaters: [Record], year: String) {
+        var minimumValue: Double = 0.0
+        for quater in quaters {
+            let realmQuater = Record()
+            realmQuater.mobileDataVolume = quater.mobileDataVolume
+            realmQuater.decreasedVolume = quater.decreasedVolume
+            if let volume = Double(quater.mobileDataVolume!) {
+                if volume < minimumValue {
+                    //set the volume for this year decreased
+                    self.performannceDecreased = true
+                    realmQuater.decreasedVolume = true
+                }
+                minimumValue = volume
+            }
+            realmQuater.quarter = quater.quarter
+            realmQuater.id = quater.id
+            realmQuater.fullCount = quater.fullCount
+            realmQuater.rank = quater.rank
+            self.quaters.append(realmQuater)
+        }
         self.year = year
         self.totalVolumeConusmed = quaters.map({ Float($0.mobileDataVolume!)!}).reduce(0, { x, y in
             x + y
         }).description
-        calculateQuatersPerformance()
-    }
-    func calculateQuatersPerformance() {
-        let quaterVolumes = quaters.map({ Float($0.mobileDataVolume!)! })
-        if !quaterVolumes.isEmpty {
-            var minimumValue: Float = 0.0
-            for index in 0..<quaterVolumes.count {
-                let volume = quaterVolumes[index]
-                if volume < minimumValue {
-                    //set the volume for this year decreased
-                    self.performannceDecreased = true
-                    self.quaters[index].decreasedVolume = true
-                }
-                minimumValue = volume
-            }
-        }
     }
 }
