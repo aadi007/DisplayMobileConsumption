@@ -14,8 +14,7 @@ class DataDisplayViewController: UIViewController {
     var viewModel: DataFetchViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
-//        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: AppProvider.networkManager)
-        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: NetworkProvider<NetworkRouter>(endpointClosure: networkEndPointClousure, stubClosure: NetworkProvider.delayedStub(1)))
+        viewModel = DataFetchViewModel(min: 2008, max: 2018, networkManager: AppProvider.networkManager)
         viewModel.fetchData {
             self.titleLabel.text = "Displaying the amount the of data sent over Singapore’s mobile networks from 2008 to 2018."
             self.dataTable.reloadData()
