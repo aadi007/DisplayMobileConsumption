@@ -19,7 +19,7 @@ class NetworkManagerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testFetchRecordsAPI() {
+    func testFetchRecordsHTTPStatusCode200() {
         let promise = expectation(description: "Get quarter records for year 2008")
         networkManager.request(NetworkRouter.getData(resourceId: "a807b7ab-6cad-4aa6-87d0-e283a7353a0f", limit: 4, query: "2008")) { result in
             switch result {
@@ -35,6 +35,24 @@ class NetworkManagerTests: XCTestCase {
             }
         }
         waitForExpectations(timeout: 30, handler: nil)
+    }
+    // Asynchronous test: faster fail
+    func testFetchRecordsCompletes() {
+        let promise = expectation(description: "Completion handler invoked")
+        var statusCode : Int?
+        var responseError: String?
+        networkManager.request(NetworkRouter.getData(resourceId: "807b7ab-6cad-4aa6-87d0-e283a7353a0f", limit: 4, query: "2008")) { result in
+            switch result {
+            case let .success(moyaResponse):
+                statusCode = moyaResponse.statusCode
+            case let .failure(error):
+                responseError = error.errorDescription
+            }
+            promise.fulfill()
+        }
+        waitForExpectations(timeout: 30, handler: nil)
+        XCTAssertNil(responseError)
+        XCTAssertEqual(statusCode, 200)
     }
 
     func testPerformanceExample() {
