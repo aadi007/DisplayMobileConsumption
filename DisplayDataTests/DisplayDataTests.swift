@@ -19,15 +19,14 @@ class DisplayDataTests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        dataDisplayViewController = nil
     }
     
     func testYearRecordsFunction() {
         let queryArray = dataDisplayViewController.viewModel.getYearsQueryArray()
         XCTAssertEqual(queryArray.count, 11, "There are other than 11 check here \(queryArray)")
     }
-    
-    func testFetchDataWithStoredData() {
+    func testFetchDataWithStubResponse() {
+        DataBaseManager.deleteRecords()
         let promise = expectation(description: "Status code: 200")
         var count = 0
         dataDisplayViewController.viewModel.fetchData {
@@ -37,8 +36,7 @@ class DisplayDataTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         XCTAssertEqual(count, 1, "There are more or less than one record(s) for \(self.dataDisplayViewController.viewModel.records.first?.year ?? "2008")")
     }
-    
-    func testFetchDataWithStubResponse() {
+    func testFetchDataWithStoredData() {
         let promise = expectation(description: "Status code: 200")
         var count = 0
         dataDisplayViewController.viewModel.fetchData {
